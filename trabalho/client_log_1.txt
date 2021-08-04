@@ -1,0 +1,12 @@
+Beginning Diffie-Hellman key exchange.
+Enter message: 
+
+Sending message: "Primeira mensagem"
+Encrypted message: "b'\xa4\xde\xaf\x8d5\xea\r\x93\xe1gl\x94tkzsE\xaa\xfec\x18\xd7\xccV\xb4\x8ej\xee8\x8ds\x9f'"
+Enter message: 
+
+Sending message: "Outra mensagem"
+Encrypted message: "b'\xc8\xc2\x1a\xf0q\xdb\xe9\xc9\x1f\x88\xbe\xe7*\x8d\xc1\x19?\\\x8e?\xd1\xb0\xc5\xb8?\\\x8e?\xd1\xb0\xc5\xb8'"
+Enter message: 
+
+Closing client
