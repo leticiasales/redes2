@@ -10,7 +10,8 @@ else: sys.exit('Please enter a valid port (non-privileged ports are > 1023)')
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     try: s.bind((HOST, PORT))
-    except: sys.exit('Error during port alloc')
+    except Exception as err: sys.exit(f'Error creating server: {err}')
+    
     s.listen()
     conn, addr = s.accept()
     with conn:
