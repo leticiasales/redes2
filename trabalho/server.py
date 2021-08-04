@@ -12,10 +12,11 @@ BLOCK_SIZE = 32
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 65432 # Port to listen on
 
-if PORT > 1023: print('Using port', PORT)
+if PORT > 1023: print('Using server port:', PORT)
 else: sys.exit('Please enter a valid port (non-privileged ports are > 1023)')
 
 base, private_key, shared_key = rand_prime(255), rand_prime(255), rand_prime(255)
+# Generate random prime values for a, g and p
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
   try: s.bind((HOST, PORT))
@@ -50,7 +51,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
       if not data:
         break
-        conn.sendall(data)
       else:
         decrypted_data = unpad(cipher.decrypt(data), BLOCK_SIZE).decode('utf-8')
 
