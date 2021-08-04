@@ -1,0 +1,5 @@
+Using server port: 65433
+Awaiting client connection...
+Successfully connected by 127.0.0.1:60603
+Received message: "b'\xaf7D\xee\x0e\xdd\xec+\xa2&\xa3%%{\xb6\xae\xf8\x9b\xc9\xb1\xa4\xf1 \xe7\x98\xa7\xbdG\xc5IbN'"
+Error decrypting message: Padding is incorrect.
