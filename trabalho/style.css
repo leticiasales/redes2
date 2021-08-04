@@ -76,7 +76,7 @@ p:last-child {
   flex-direction: column;
   margin: 40px auto 8px;
   max-width: 600px;
-  padding: 32px;
+  padding: 24px;
   border-radius: 4px;
   background-color: #CCE8CC;
 }
