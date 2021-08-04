@@ -18,7 +18,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
   s.connect((HOST, PORT))
 
   first_message = s.recv(1024)
-  print(first_message)
+  print(first_message.decode("utf-8"))
 
   data = s.recv(1024)
   jsonData = json.loads(data.decode())
@@ -38,8 +38,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 
   while True:
     message = input("Enter message: ")
+    print('\n')
 
     if message == 'exit':
-      exit()
+      print('Closing client')
+      break
     else:
-      s.sendall(cipher.encrypt(pad(bytes(message, 'utf-8'), BLOCK_SIZE)))
+      print(f'Sending message: \"{message}\"')
+      encrypted_message = cipher.encrypt(pad(bytes(message, 'utf-8'), BLOCK_SIZE))
+
+      print(f'Encrypted message: \"{encrypted_message}\"')
+      s.sendall(encrypted_message)
