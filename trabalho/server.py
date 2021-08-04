@@ -51,7 +51,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
       data = conn.recv(1024)
 
       if not data:
+        print('Closing server')
         break
       else:
+        print(f'Received message: \"{data}\"')
+
         decrypted_data = unpad(cipher.decrypt(data), BLOCK_SIZE).decode('utf-8')
-        print(f'Received message: \"{decrypted_data}\"')
+        print(f'Received descripted message: \"{decrypted_data}\"')
