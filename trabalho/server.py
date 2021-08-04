@@ -9,15 +9,17 @@ if PORT > 1023: print('Using port', PORT)
 else: sys.exit('Please enter a valid port (non-privileged ports are > 1023)')
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    try: s.bind((HOST, PORT))
-    except Exception as err: sys.exit(f'Error creating server: {err}')
-    
-    s.listen()
-    conn, addr = s.accept()
-    with conn:
-        print('Connected by', addr)
-        while True:
-            data = conn.recv(1024)
-            if not data:
-                break
-            conn.sendall(data)
+  try: s.bind((HOST, PORT))
+  except Exception as err: sys.exit(f'Error creating server: {err}')
+
+  s.listen()
+  print('Awaiting client connection...')
+
+  conn, addr = s.accept()  
+  with conn:
+    print('Connected by', addr)
+    while True:
+      data = conn.recv(1024)
+      if not data:
+        break
+      conn.sendall(data)
