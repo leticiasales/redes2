@@ -28,7 +28,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
   conn, (client_host, client_port) = s.accept()  
 
   with conn:
-    print(f'Connected by {client_host}:{client_port}')
+    print(f'Successfully connected by {client_host}:{client_port}')
 
     conn.send(bytes('Beginning Diffie-Hellman key exchange.', 'utf-8'))
 
