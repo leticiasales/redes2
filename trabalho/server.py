@@ -43,6 +43,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     data = conn.recv(1024)
 
     client_public_secret = json.loads(data.decode())['public_secret']
+
     shared_secret = generate_shared_secret(client_public_secret, private_key, shared_key)
     cipher = DES.new(shared_secret.to_bytes(8, byteorder='big'), DES.MODE_ECB)
 
@@ -53,5 +54,4 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         break
       else:
         decrypted_data = unpad(cipher.decrypt(data), BLOCK_SIZE).decode('utf-8')
-
         print(f'Received message: \"{decrypted_data}\"')
