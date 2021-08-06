@@ -20,6 +20,8 @@ else:
 base, private_key, shared_key = rand_prime(255), rand_prime(255), rand_prime(255)
 # Generate random prime values for a, g and p
 
+print(f'Generated base: {base}, private_key: {private_key}, shared_key: {shared_key}')
+
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
   try: s.bind((HOST, PORT))
   except Exception as err:
@@ -34,9 +36,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
   with conn:
     print(f'Successfully connected by {client_host}:{client_port}')
 
-    conn.send(bytes('Beginning Diffie-Hellman key exchange.', 'utf-8'))
+    conn.send(bytes('Beginning Diffie-Hellman key exchange.\n', 'utf-8'))
 
     public_secret = generate_public_secret(base, private_key, shared_key)
+    print(f'Generated server public_secret: {public_secret}')
 
     conn.send(bytes(json.dumps({
       'base': base,
@@ -44,11 +47,16 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
       'public_secret': public_secret
       }), 'utf-8'))
 
+    print(f'Sending "base: {base}, shared_key: {shared_key}, public_secret: {public_secret}"')
+
     data = conn.recv(1024)
 
     client_public_secret = json.loads(data.decode())['public_secret']
+    print(f'Received client public_secret: {client_public_secret}')
 
     shared_secret = generate_shared_secret(client_public_secret, private_key, shared_key)
+    print(f'Generated shared_secret: {shared_secret}')
+
     cipher = DES.new(shared_secret.to_bytes(8, byteorder='big'), DES.MODE_ECB)
 
     while True:

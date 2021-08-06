@@ -13,6 +13,7 @@ HOST = sys.argv[1] if len(sys.argv) > 2 else '127.0.0.1'  # The server's hostnam
 PORT = int(sys.argv[2]) if len(sys.argv) > 2 else 65432 # The port used by the server
 
 private_key = rand_prime(1024)
+print(f'Generated private_key: {private_key}')
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
   s.connect((HOST, PORT))
@@ -26,9 +27,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
   base = jsonData['base']
   shared_key = jsonData['shared_key']
   server_public_secret = jsonData['public_secret']
+  print(f'Received "base: {base}, shared_key: {shared_key}, public_secret: {server_public_secret}"')
 
   public_secret = generate_public_secret(base, private_key, shared_key)
   shared_secret = generate_shared_secret(server_public_secret, private_key, shared_key)
+
+  print(f'Generated client public_secret: {public_secret}')
+  print(f'Sending server public_secret: {public_secret}')
+  print(f'Generated shared_secret: {shared_secret}')
 
   s.send(bytes(json.dumps({
     'public_secret': public_secret
